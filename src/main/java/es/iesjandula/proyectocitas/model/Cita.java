@@ -1,9 +1,9 @@
 package es.iesjandula.proyectocitas.model;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
@@ -11,15 +11,14 @@ import java.util.Objects;
 public class Cita {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id_Cita;
     private Long id_Cliente;
     private Long id_Empleado;
     private Long id_Servicio;
-    private LocalDate fecha_Cita;
-    private LocalDateTime hora_Cita;
+    private LocalDateTime fecha_hora_Cita;
     private String observaciones;
     private String estado_Cita;
-
 
     public Long getId_Cita() {
         return id_Cita;
@@ -53,20 +52,12 @@ public class Cita {
         this.id_Servicio = id_Servicio;
     }
 
-    public LocalDate getFecha_Cita() {
-        return fecha_Cita;
+    public LocalDateTime getFecha_hora_Cita() {
+        return fecha_hora_Cita;
     }
 
-    public void setFecha_Cita(LocalDate fecha_Cita) {
-        this.fecha_Cita = fecha_Cita;
-    }
-
-    public LocalDateTime getHora_Cita() {
-        return hora_Cita;
-    }
-
-    public void setHora_Cita(LocalDateTime hora_Cita) {
-        this.hora_Cita = hora_Cita;
+    public void setFecha_hora_Cita(LocalDateTime fecha_hora_Cita) {
+        this.fecha_hora_Cita = fecha_hora_Cita;
     }
 
     public String getObservaciones() {
@@ -86,28 +77,14 @@ public class Cita {
     }
 
     @Override
-    public String toString() {
-        return "Cita{" +
-                "id_Cita=" + id_Cita +
-                ", id_Cliente=" + id_Cliente +
-                ", id_Empleado=" + id_Empleado +
-                ", id_Servicio=" + id_Servicio +
-                ", fecha_Cita=" + fecha_Cita +
-                ", hora_Cita=" + hora_Cita +
-                ", observaciones='" + observaciones + '\'' +
-                ", estado_Cita='" + estado_Cita + '\'' +
-                '}';
-    }
-
-    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Cita cita)) return false;
-        return Objects.equals(id_Cita, cita.id_Cita) && Objects.equals(id_Cliente, cita.id_Cliente) && Objects.equals(id_Empleado, cita.id_Empleado) && Objects.equals(id_Servicio, cita.id_Servicio) && Objects.equals(fecha_Cita, cita.fecha_Cita) && Objects.equals(hora_Cita, cita.hora_Cita) && Objects.equals(observaciones, cita.observaciones) && Objects.equals(estado_Cita, cita.estado_Cita);
+        return Objects.equals(id_Cita, cita.id_Cita) && Objects.equals(id_Cliente, cita.id_Cliente) && Objects.equals(id_Empleado, cita.id_Empleado) && Objects.equals(id_Servicio, cita.id_Servicio) && Objects.equals(fecha_hora_Cita, cita.fecha_hora_Cita) && Objects.equals(observaciones, cita.observaciones) && Objects.equals(estado_Cita, cita.estado_Cita);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id_Cita, id_Cliente, id_Empleado, id_Servicio, fecha_Cita, hora_Cita, observaciones, estado_Cita);
+        return Objects.hash(id_Cita, id_Cliente, id_Empleado, id_Servicio, fecha_hora_Cita, observaciones, estado_Cita);
     }
 }
