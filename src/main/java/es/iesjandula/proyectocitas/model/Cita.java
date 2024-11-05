@@ -8,6 +8,16 @@ import java.util.Objects;
 @Entity
 public class Cita {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id_Cita;
+    private Long id_Cliente;
+    private Long id_Empleado;
+    private Long id_Servicio;
+    private LocalDateTime fecha_hora_Cita;
+    private String observaciones;
+    private String estado_Cita;
+
     // Relación con Cliente
     @ManyToOne
     @JoinColumn(name = "idCliente")
@@ -26,16 +36,6 @@ public class Cita {
     // Relación con Pago
     @OneToOne(mappedBy = "cita")
     private Pago pago;
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id_Cita;
-    private Long id_Cliente;
-    private Long id_Empleado;
-    private Long id_Servicio;
-    private LocalDateTime fecha_hora_Cita;
-    private String observaciones;
-    private String estado_Cita;
 
     public Long getId_Cita() {
         return id_Cita;
