@@ -1,6 +1,9 @@
+package es.iesjandula.proyectocitas.model;
+
 import jakarta.persistence.*;
 
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 public class Cliente {
@@ -17,7 +20,7 @@ public class Cliente {
     @OneToMany(mappedBy = "cliente")
     private List<Cita> citas;
 
-    // Getters y Setters
+
     public Long getIdCliente() {
         return idCliente;
     }
@@ -48,5 +51,19 @@ public class Cliente {
 
     public void setTelefono(String telefono) {
         this.telefono = telefono;
+    }
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Cliente cliente = (Cliente) o;
+        return Objects.equals(idCliente, cliente.idCliente) && Objects.equals(nombre, cliente.nombre) && Objects.equals(correo, cliente.correo) && Objects.equals(telefono, cliente.telefono) && Objects.equals(citas, cliente.citas);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(idCliente, nombre, correo, telefono, citas);
     }
 }

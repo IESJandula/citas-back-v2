@@ -1,26 +1,26 @@
 package es.iesjandula.proyectocitas.model;
 
 import jakarta.persistence.*;
-import org.springframework.data.annotation.Id;
 
+import java.util.List;
 import java.util.Objects;
 
 @Entity
 public class Empleado {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long idEmpleado;
 
     private String nombre;
     private String correo;
     private String especialidad;
 
-    // Relación con Horario
+    // Relacion con Horario
     @OneToMany(mappedBy = "empleado", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Horario> horarios;
 
-    // Relación con Cita
+    // Relacion con Cita
     @OneToMany(mappedBy = "empleado", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Cita> citas;
 
@@ -86,6 +86,4 @@ public class Empleado {
     public int hashCode() {
         return Objects.hash(idEmpleado, nombre, correo, especialidad, horarios, citas);
     }
-
-    // ...
 }

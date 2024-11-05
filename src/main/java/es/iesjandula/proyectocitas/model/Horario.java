@@ -2,6 +2,8 @@ package es.iesjandula.proyectocitas.model;
 
 import jakarta.persistence.*;
 
+import java.util.Objects;
+
 @Entity
 public class Horario {
 
@@ -13,12 +15,11 @@ public class Horario {
     private String horaInicio;
     private String horaFin;
 
-    // Relación con Empleado
+    // Relaciones
     @ManyToOne
     @JoinColumn(name = "idEmpleado")
     private Empleado empleado;
 
-    // Getters y Setters
 
     public Long getIdHorario() {
         return idHorario;
@@ -50,5 +51,19 @@ public class Horario {
 
     public void setHoraFin(String horaFin) {
         this.horaFin = horaFin;
+    }
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Horario horario = (Horario) o;
+        return Objects.equals(idHorario, horario.idHorario) && Objects.equals(diaSemana, horario.diaSemana) && Objects.equals(horaInicio, horario.horaInicio) && Objects.equals(horaFin, horario.horaFin) && Objects.equals(empleado, horario.empleado);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(idHorario, diaSemana, horaInicio, horaFin, empleado);
     }
 }

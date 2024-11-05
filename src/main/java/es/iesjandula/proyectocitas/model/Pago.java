@@ -19,7 +19,7 @@ public class Pago {
     @Enumerated(EnumType.STRING)
     private MetodoPago metodoPago;
 
-    // Relación con Cita
+    // Relaciones
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "idCita")
     private Cita cita;
@@ -29,8 +29,6 @@ public class Pago {
         TARJETA_CREDITO, TARJETA_DEBITO, EFECTIVO, TRANSFERENCIA
     }
 
-
-    // Getters y Setters
 
     public Long getIdPago() {
         return idPago;
