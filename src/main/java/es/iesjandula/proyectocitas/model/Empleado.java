@@ -1,8 +1,8 @@
 package es.iesjandula.proyectocitas.model;
 
 import jakarta.persistence.*;
-import org.springframework.data.annotation.Id;
 
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -10,7 +10,7 @@ public class Empleado {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idEmpleado;
+    private long idEmpleado;
 
     private String nombre;
     private String correo;
@@ -86,6 +86,4 @@ public class Empleado {
     public int hashCode() {
         return Objects.hash(idEmpleado, nombre, correo, especialidad, horarios, citas);
     }
-
-    // ...
 }
