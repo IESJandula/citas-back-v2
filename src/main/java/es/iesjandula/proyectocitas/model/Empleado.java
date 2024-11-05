@@ -1,8 +1,8 @@
 package es.iesjandula.proyectocitas.model;
 
 import jakarta.persistence.*;
-import org.springframework.data.annotation.Id;
 
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -23,6 +23,16 @@ public class Empleado {
     // Relación con Cita
     @OneToMany(mappedBy = "empleado", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Cita> citas;
+
+    public Empleado(Long idEmpleado, String nombre, String correo, String especialidad, List<Horario> horarios, List<Cita> citas) {
+        this.idEmpleado = idEmpleado;
+        this.nombre = nombre;
+        this.correo = correo;
+        this.especialidad = especialidad;
+        this.horarios = horarios;
+        this.citas = citas;
+    }
+    public Empleado() {}
 
     // Getters y Setters
 
@@ -87,5 +97,13 @@ public class Empleado {
         return Objects.hash(idEmpleado, nombre, correo, especialidad, horarios, citas);
     }
 
-    // ...
+    public void setId(Long idEmpleado) {
+        this.idEmpleado = idEmpleado;
+    }
+
+    public Long getIdempleado() {
+        return idEmpleado;
+    }
+
+
 }
