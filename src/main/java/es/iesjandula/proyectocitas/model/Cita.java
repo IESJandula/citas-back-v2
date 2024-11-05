@@ -10,6 +10,7 @@ public class Cita {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+
     private Long id_Cita;
     private Long id_Cliente;
     private Long id_Empleado;
