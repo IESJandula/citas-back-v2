@@ -1,9 +1,7 @@
 package es.iesjandula.proyectocitas.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+
 import java.time.LocalDateTime;
 import java.util.Objects;
 
@@ -19,6 +17,25 @@ public class Cita {
     private LocalDateTime fecha_hora_Cita;
     private String observaciones;
     private String estado_Cita;
+
+    // Relación con Cliente
+    @ManyToOne
+    @JoinColumn(name = "idCliente")
+    private Cliente cliente;
+
+    // Relación con Empleado
+    @ManyToOne
+    @JoinColumn(name = "idEmpleado")
+    private Empleado empleado;
+
+    // Relación con Servicio
+    @ManyToOne
+    @JoinColumn(name = "idServicio")
+    private Servicio servicio;
+
+    // Relación con Pago
+    @OneToOne(mappedBy = "cita")
+    private Pago pago;
 
     public Long getId_Cita() {
         return id_Cita;
