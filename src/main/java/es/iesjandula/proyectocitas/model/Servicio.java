@@ -8,7 +8,7 @@ import java.util.Objects;
 @Entity
 public class Servicio {
 
-    @OneToMany(mappedBy = "servicio")
+    @OneToMany(mappedBy = "servicio",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     private List<Cita> citas;
 
     @Id

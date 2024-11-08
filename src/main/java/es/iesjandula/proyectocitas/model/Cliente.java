@@ -17,7 +17,7 @@ public class Cliente {
     private String telefono;
 
     // Relacion con Cita
-    @OneToMany(mappedBy = "cliente")
+    @OneToMany(mappedBy = "cliente",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     private List<Cita> citas;
 
 

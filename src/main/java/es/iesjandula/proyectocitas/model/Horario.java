@@ -2,6 +2,7 @@ package es.iesjandula.proyectocitas.model;
 
 import jakarta.persistence.*;
 
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -15,10 +16,10 @@ public class Horario {
     private String horaInicio;
     private String horaFin;
 
-    // Relaciones
-    @ManyToOne
-    @JoinColumn(name = "idEmpleado")
+    // Relacion con Empleado
+    @OneToOne(mappedBy = "horario", fetch = FetchType.LAZY)
     private Empleado empleado;
+
 
 
     public Long getIdHorario() {

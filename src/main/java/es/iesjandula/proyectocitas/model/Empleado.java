@@ -17,8 +17,9 @@ public class Empleado {
     private String especialidad;
 
     // Relación con Horario
-    @OneToMany(mappedBy = "empleado", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<Horario> horarios;
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "idHorario", referencedColumnName = "id")
+    private Horario horario;
 
     // Relación con Cita
     @OneToMany(mappedBy = "empleado", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
@@ -42,12 +43,12 @@ public class Empleado {
         this.citas = citas;
     }
 
-    public List<Horario> getHorarios() {
-        return horarios;
+    public Horario getHorario() {
+        return horario;
     }
 
-    public void setHorarios(List<Horario> horarios) {
-        this.horarios = horarios;
+    public void setHorario(Horario horario) {
+        this.horario = horario;
     }
 
     public String getCorreo() {
@@ -79,11 +80,11 @@ public class Empleado {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Empleado empleado = (Empleado) o;
-        return Objects.equals(idEmpleado, empleado.idEmpleado) && Objects.equals(nombre, empleado.nombre) && Objects.equals(correo, empleado.correo) && Objects.equals(especialidad, empleado.especialidad) && Objects.equals(horarios, empleado.horarios) && Objects.equals(citas, empleado.citas);
+        return Objects.equals(idEmpleado, empleado.idEmpleado) && Objects.equals(nombre, empleado.nombre) && Objects.equals(correo, empleado.correo) && Objects.equals(especialidad, empleado.especialidad) && Objects.equals(horario, empleado.horario) && Objects.equals(citas, empleado.citas);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(idEmpleado, nombre, correo, especialidad, horarios, citas);
+        return Objects.hash(idEmpleado, nombre, correo, especialidad, horario, citas);
     }
 }
