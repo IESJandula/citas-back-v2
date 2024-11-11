@@ -13,7 +13,7 @@ public class ServicioService {
     @Autowired
     private ServicioRepository servicioRepository;
 
-    //Obtener todas los servicios
+    //Obtener todos los servicios
     public List<Servicio> obtenerTodosServicios() {
         return servicioRepository.findAll();
     }
@@ -33,17 +33,17 @@ public class ServicioService {
     public Servicio actualizarServicio(Long idServicio, Servicio servicioDetails) {
         return servicioRepository.findById(idServicio)
                 .map(servicio -> {
-                    // Actualiza los campos de la cita según los datos de `citaDetails`
+                    // Actualiza los campos del servicio según los datos de `servicioDetails`
                     servicio.setIdServicio(servicioDetails.getIdServicio());
                     servicio.setNombre(servicioDetails.getNombre());
                     servicio.setDescripcion(servicioDetails.getDescripcion());
                     servicio.setDuracion(servicioDetails.getDuracion());
 
-                    //Muestra el resultado de la cita actualizada
+                    //Muestra el resultado del servicio actualizado
                     return servicioRepository.save(servicio);
                 })
                 .orElseGet(() -> {
-                    // Si no existe, guarda la cita con el ID proporcionado
+                    // Si no existe, guarda el servicio con el ID proporcionado
                     servicioDetails.setIdServicio(idServicio);
                     return servicioRepository.save(servicioDetails);
                 });
