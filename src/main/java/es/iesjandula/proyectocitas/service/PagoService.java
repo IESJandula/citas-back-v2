@@ -15,7 +15,7 @@ public class PagoService {
     private PagoRepository pagoRepository;
 
     //Obtener todos los pagos
-    public List<Pago> obtenerTodosPagos(){
+    public List<Pago> obtenerTodosPagos() {
         return pagoRepository.findAll();
     }
 
@@ -25,7 +25,7 @@ public class PagoService {
     }
 
     //Crear un pago
-    public Pago guardarPago(Pago pago){
+    public Pago guardarPago(Pago pago) {
         return pagoRepository.save(pago);
     }
 
@@ -47,5 +47,11 @@ public class PagoService {
                     pagoDetails.setIdPago(idPago);
                     return pagoRepository.save(pagoDetails);
                 });
+    }
+
+    //Eliminar pago
+    public void eliminarPago(Long id){
+
+        pagoRepository.deleteById(id);
     }
 }
