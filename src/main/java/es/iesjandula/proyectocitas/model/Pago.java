@@ -24,7 +24,7 @@ public class Pago {
     @JoinColumn(name = "idCita")
     private Cita cita;
 
-    // Enum para el método de pago
+    // Enum para el metodo de pago
     public enum MetodoPago {
         TARJETA_CREDITO, TARJETA_DEBITO, EFECTIVO, TRANSFERENCIA
     }
