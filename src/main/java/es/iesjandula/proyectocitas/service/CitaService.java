@@ -10,6 +10,7 @@ import es.iesjandula.proyectocitas.repository.ServicioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -58,7 +59,7 @@ public class CitaService {
         nuevaCita.setFecha_hora_Cita(fechaHora);
         nuevaCita.setServicio(servicio);
 
-        // Guardar la cita
+        // Guardar y retornar la nueva cita
         return citaRepository.save(nuevaCita);
     }
 
@@ -95,6 +96,14 @@ public class CitaService {
                     citaDetails.setId_Cita(id);
                     return citaRepository.save(citaDetails);
                 });
+    }
+
+    //Método para obtener citas de un día específico
+
+    public List<Cita> obtenerCitasPorDia(LocalDate fecha) {
+        return citaRepository.findAll().stream()
+                .filter(cita -> cita.getFecha_hora_Cita().toLocalDate().equals(fecha))
+                .toList();
     }
 
     // Eliminar cita
