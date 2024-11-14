@@ -36,6 +36,7 @@ public class ClienteService {
     public Cliente actualizarCliente(Long idCliente, Cliente cliente) {
         if (clienteRepository.existsById(idCliente)) {
             cliente.setIdCliente(idCliente);
+            cliente.setApellidos(cliente.getApellidos());
             return clienteRepository.save(cliente);
         }
         return null;  // O lanzar una excepción si no se encuentra el cliente
