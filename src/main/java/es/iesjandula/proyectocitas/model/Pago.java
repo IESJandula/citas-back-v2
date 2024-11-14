@@ -21,7 +21,7 @@ public class Pago {
 
     // Relaciones
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "idCita")
+    @JoinColumn(name = "id_Cita")
     private Cita cita;
 
     // Enum para el metodo de pago

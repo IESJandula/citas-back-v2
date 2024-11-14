@@ -12,9 +12,6 @@ public class Cita {
     @GeneratedValue(strategy = GenerationType.AUTO)
 
     private Long id_Cita;
-    private Long id_Cliente;
-    private Long id_Empleado;
-    private Long id_Servicio;
     private LocalDateTime fecha_hora_Cita;
     private String observaciones;
     private String estado_Cita;
@@ -46,29 +43,6 @@ public class Cita {
         this.id_Cita = id_Cita;
     }
 
-    public Long getId_Cliente() {
-        return id_Cliente;
-    }
-
-    public void setId_Cliente(Long id_Cliente) {
-        this.id_Cliente = id_Cliente;
-    }
-
-    public Long getId_Empleado() {
-        return id_Empleado;
-    }
-
-    public void setId_Empleado(Long id_Empleado) {
-        this.id_Empleado = id_Empleado;
-    }
-
-    public Long getId_Servicio() {
-        return id_Servicio;
-    }
-
-    public void setId_Servicio(Long id_Servicio) {
-        this.id_Servicio = id_Servicio;
-    }
 
     public LocalDateTime getFecha_hora_Cita() {
         return fecha_hora_Cita;
@@ -86,6 +60,28 @@ public class Cita {
         this.observaciones = observaciones;
     }
 
+    public Cliente getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
+    }
+
+    public Empleado getEmpleado() {
+        return empleado;
+    }
+    public void setEmpleado(Empleado empleado) {
+        this.empleado = empleado;
+    }
+
+    public Servicio getServicio() {
+        return servicio;
+    }
+    public void setServicio(Servicio servicio) {
+        this.servicio = servicio;
+    }
+
     public String getEstado_Cita() {
         return estado_Cita;
     }
@@ -98,11 +94,11 @@ public class Cita {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Cita cita)) return false;
-        return Objects.equals(id_Cita, cita.id_Cita) && Objects.equals(id_Cliente, cita.id_Cliente) && Objects.equals(id_Empleado, cita.id_Empleado) && Objects.equals(id_Servicio, cita.id_Servicio) && Objects.equals(fecha_hora_Cita, cita.fecha_hora_Cita) && Objects.equals(observaciones, cita.observaciones) && Objects.equals(estado_Cita, cita.estado_Cita);
+        return Objects.equals(id_Cita, cita.id_Cita) && Objects.equals(fecha_hora_Cita, cita.fecha_hora_Cita) && Objects.equals(observaciones, cita.observaciones) && Objects.equals(estado_Cita, cita.estado_Cita);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id_Cita, id_Cliente, id_Empleado, id_Servicio, fecha_hora_Cita, observaciones, estado_Cita);
+        return Objects.hash(id_Cita, fecha_hora_Cita, observaciones, estado_Cita);
     }
 }

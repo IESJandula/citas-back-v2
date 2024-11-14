@@ -13,6 +13,7 @@ public class Cliente {
     private Long idCliente;
 
     private String nombre;
+    private String apellidos;
     private String correo;
     private String telefono;
 
@@ -37,6 +38,14 @@ public class Cliente {
         this.nombre = nombre;
     }
 
+    public String getApellidos() {
+        return apellidos;
+    }
+
+    public void setApellidos(String apellidos) {
+        this.apellidos = apellidos;
+    }
+
     public String getCorreo() {
         return correo;
     }
@@ -59,11 +68,11 @@ public class Cliente {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Cliente cliente = (Cliente) o;
-        return Objects.equals(idCliente, cliente.idCliente) && Objects.equals(nombre, cliente.nombre) && Objects.equals(correo, cliente.correo) && Objects.equals(telefono, cliente.telefono) && Objects.equals(citas, cliente.citas);
+        return Objects.equals(idCliente, cliente.idCliente) && Objects.equals(nombre, cliente.nombre) && Objects.equals(apellidos, cliente.apellidos) && Objects.equals(correo, cliente.correo) && Objects.equals(telefono, cliente.telefono) && Objects.equals(citas, cliente.citas);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(idCliente, nombre, correo, telefono, citas);
+        return Objects.hash(idCliente, nombre, apellidos, correo, telefono, citas);
     }
 }

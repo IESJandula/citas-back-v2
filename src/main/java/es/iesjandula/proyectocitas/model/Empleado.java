@@ -13,12 +13,13 @@ public class Empleado {
     private long idEmpleado;
 
     private String nombre;
+    private String apellidos;
     private String correo;
     private String especialidad;
 
     // Relación con Horario
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "idHorario", referencedColumnName = "id")
+    @JoinColumn(name = "idHorario", referencedColumnName = "idHorario")
     private Horario horario;
 
     // Relación con Cita
@@ -67,6 +68,14 @@ public class Empleado {
         this.nombre = nombre;
     }
 
+    public String getApellidos() {
+        return apellidos;
+    }
+
+    public void setApellidos(String apellidos) {
+        this.apellidos = apellidos;
+    }
+
     public Long getIdEmpleado() {
         return idEmpleado;
     }
@@ -80,11 +89,11 @@ public class Empleado {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Empleado empleado = (Empleado) o;
-        return Objects.equals(idEmpleado, empleado.idEmpleado) && Objects.equals(nombre, empleado.nombre) && Objects.equals(correo, empleado.correo) && Objects.equals(especialidad, empleado.especialidad) && Objects.equals(horario, empleado.horario) && Objects.equals(citas, empleado.citas);
+        return Objects.equals(idEmpleado, empleado.idEmpleado) && Objects.equals(nombre, empleado.nombre) && Objects.equals(apellidos, empleado.apellidos) && Objects.equals(correo, empleado.correo) && Objects.equals(especialidad, empleado.especialidad) && Objects.equals(horario, empleado.horario) && Objects.equals(citas, empleado.citas);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(idEmpleado, nombre, correo, especialidad, horario, citas);
+        return Objects.hash(idEmpleado, nombre, apellidos, correo, especialidad, horario, citas);
     }
 }

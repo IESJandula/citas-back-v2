@@ -27,6 +27,7 @@ public class EmpleadoService {
     public Empleado actualizarEmpleado(Long id, Empleado empleadoActualizado){
         return empleadoRepository.findById(id).map(empleado -> {
             empleado.setNombre(empleadoActualizado.getNombre());
+            empleado.setApellidos(empleadoActualizado.getApellidos());
             empleado.setHorario(empleadoActualizado.getHorario());
             return empleadoRepository.save(empleado);
         }).orElseThrow(() -> new RuntimeException("Empleado no encontrado"));
