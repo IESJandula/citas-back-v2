@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -38,8 +39,11 @@ public class CitaService {
 
     // Registrar una cita nueva
     public Cita registrarCita(Long idCliente, LocalDateTime fechaHora, Long idServicio) {
-        // Validar si el horario está ocupado
-        if (citaRepository.existsByFechaHoraCita(fechaHora)) {
+        // Validar si existe una cita en la misma fecha y hora
+        boolean horarioOcupado = citaRepository.findAll().stream()
+                .anyMatch(cita -> cita.getFechaHoraCita().equals(fechaHora));
+
+        if (horarioOcupado) {
             throw new RuntimeException("El horario está ocupado. No se puede registrar la cita.");
         }
 
@@ -49,23 +53,63 @@ public class CitaService {
         Servicio servicio = servicioRepository.findById(idServicio)
                 .orElseThrow(() -> new RuntimeException("Servicio no encontrado."));
 
-        // Crear y guardar la nueva cita
+        // Crear la nueva cita
         Cita nuevaCita = new Cita();
         nuevaCita.setCliente(cliente);
         nuevaCita.setFechaHoraCita(fechaHora);
         nuevaCita.setServicio(servicio);
 
+        // Guardar y retornar la nueva cita
         return citaRepository.save(nuevaCita);
     }
 
-    // Obtener citas de un día específico
-    public List<Cita> obtenerCitasPorDia(LocalDate fecha) {
-        return citaRepository.findByFecha(fecha);
+    // Crear una cita
+    public Cita guardarCita(Cita cita) {
+        return citaRepository.save(cita);
     }
 
-    // Eliminar una cita
+    // Actualizar una cita existente
+    public Cita actualizarCita(Long id, Cita citaDetails) {
+        return citaRepository.findById(id)
+                .map(cita -> {
+                    // Actualiza los campos de la cita según los datos de `citaDetails`
+                    cita.setFechaHoraCita(citaDetails.getFechaHoraCita());
+                    cita.setObservaciones(citaDetails.getObservaciones());
+                    cita.setEstadoCita(citaDetails.getEstadoCita());
+
+                    // Actualizar cliente, empleado y servicio
+                    if (citaDetails.getCliente() != null) {
+                        cita.setCliente(citaDetails.getCliente());
+                    }
+                    if (citaDetails.getEmpleado() != null) {
+                        cita.setEmpleado(citaDetails.getEmpleado());
+                    }
+                    if (citaDetails.getServicio() != null) {
+                        cita.setServicio(citaDetails.getServicio());
+                    }
+
+                    // Guardar y retornar la cita actualizada
+                    return citaRepository.save(cita);
+                })
+                .orElseGet(() -> {
+                    // Si no existe, guarda la cita con el ID proporcionado
+                    citaDetails.setIdCita(id);
+                    return citaRepository.save(citaDetails);
+                });
+    }
+
+    //Metodo para obtener citas de un día específico
+
+    public List<Cita> obtenerCitasPorDia(LocalDate fecha) {
+        // Define el inicio y fin del día
+        LocalDateTime inicioDelDia = fecha.atStartOfDay();
+        LocalDateTime finDelDia = fecha.atTime(LocalTime.MAX);
+
+        return citaRepository.findByFechaHoraCitaBetween(inicioDelDia, finDelDia);
+    }
+
+    // Eliminar cita
     public void eliminarCita(Long id) {
         citaRepository.deleteById(id);
     }
 }
-

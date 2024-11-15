@@ -9,7 +9,7 @@ import java.util.Objects;
 public class Cita {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
 
     private Long idCita;
     private LocalDateTime fechaHoraCita;

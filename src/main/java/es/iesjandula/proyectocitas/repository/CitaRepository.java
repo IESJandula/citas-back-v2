@@ -15,6 +15,5 @@ public interface CitaRepository extends JpaRepository<Cita, Long> {
     boolean existsByFechaHoraCita(LocalDateTime fechaHoraCita);
 
     // Metodo para obtener citas por fecha
-    @Query("SELECT c FROM Cita c WHERE DATE(c.fechaHoraCita) = :fecha")
-    List<Cita> findByFecha(LocalDate fecha);
+    List<Cita> findByFechaHoraCitaBetween(LocalDateTime startOfDay, LocalDateTime endOfDay);
 }
