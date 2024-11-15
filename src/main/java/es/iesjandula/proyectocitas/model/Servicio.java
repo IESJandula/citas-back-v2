@@ -2,6 +2,7 @@ package es.iesjandula.proyectocitas.model;
 
 import jakarta.persistence.*;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Objects;
 
@@ -17,6 +18,7 @@ public class Servicio {
     private String nombre;
     private String descripcion;
     private Integer duracion;
+    private BigDecimal precio;
 
     public Long getIdServicio() {
         return idServicio;
@@ -48,6 +50,14 @@ public class Servicio {
 
     public void setDuracion(Integer duracion) {
         this.duracion = duracion;
+    }
+
+    public BigDecimal getPrecio() {
+        return precio;
+    }
+
+    public void setPrecio(BigDecimal precio) {
+        this.precio = precio;
     }
 
     @Override

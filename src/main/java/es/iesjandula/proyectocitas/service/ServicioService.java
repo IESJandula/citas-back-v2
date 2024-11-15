@@ -38,6 +38,7 @@ public class ServicioService {
                     servicio.setNombre(servicioDetails.getNombre());
                     servicio.setDescripcion(servicioDetails.getDescripcion());
                     servicio.setDuracion(servicioDetails.getDuracion());
+                    servicio.setPrecio(servicioDetails.getPrecio());
 
                     //Muestra el resultado del servicio actualizado
                     return servicioRepository.save(servicio);
