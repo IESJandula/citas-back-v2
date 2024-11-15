@@ -14,7 +14,7 @@ import java.time.LocalTime;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/citas")
+@RequestMapping("/citas")
 public class CitaController {
 
     @Autowired
@@ -29,20 +29,21 @@ public class CitaController {
             @RequestParam Long idServicio) {
 
         LocalDateTime fechaHora = LocalDateTime.of(fecha, hora);
+
         try {
             Cita nuevaCita = citaService.registrarCita(idCliente, fechaHora, idServicio);
-            return ResponseEntity.status(HttpStatus.CREATED).body("Cita registrada con éxito: " + nuevaCita.getId_Cita());
+            return ResponseEntity.status(HttpStatus.CREATED).body("Cita registrada con éxito. ID: " + nuevaCita.getIdCita());
         } catch (RuntimeException e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }
     }
 
-    // Endpoint para obtener todas las citas de un día específico
+    // Endpoint para obtener citas de un día específico
     @GetMapping("/dia")
     public ResponseEntity<List<Cita>> obtenerCitasPorDia(
             @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate fecha) {
 
         List<Cita> citas = citaService.obtenerCitasPorDia(fecha);
-        return ResponseEntity.ok(citas);
+        return citas.isEmpty() ? ResponseEntity.noContent().build() : ResponseEntity.ok(citas);
     }
 }
