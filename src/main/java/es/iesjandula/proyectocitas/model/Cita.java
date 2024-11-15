@@ -9,12 +9,12 @@ import java.util.Objects;
 public class Cita {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
 
-    private Long id_Cita;
-    private LocalDateTime fecha_hora_Cita;
+    private Long idCita;
+    private LocalDateTime fechaHoraCita;
     private String observaciones;
-    private String estado_Cita;
+    private String estadoCita;
 
     // Relación con Cliente
     @ManyToOne
@@ -35,21 +35,21 @@ public class Cita {
     @OneToOne(mappedBy = "cita")
     private Pago pago;
 
-    public Long getId_Cita() {
-        return id_Cita;
+    public Long getIdCita() {
+        return idCita;
     }
 
-    public void setId_Cita(Long id_Cita) {
-        this.id_Cita = id_Cita;
+    public void setIdCita(Long id_Cita) {
+        this.idCita = id_Cita;
     }
 
 
-    public LocalDateTime getFecha_hora_Cita() {
-        return fecha_hora_Cita;
+    public LocalDateTime getFechaHoraCita() {
+        return fechaHoraCita;
     }
 
-    public void setFecha_hora_Cita(LocalDateTime fecha_hora_Cita) {
-        this.fecha_hora_Cita = fecha_hora_Cita;
+    public void setFechaHoraCita(LocalDateTime fecha_hora_Cita) {
+        this.fechaHoraCita = fecha_hora_Cita;
     }
 
     public String getObservaciones() {
@@ -82,23 +82,23 @@ public class Cita {
         this.servicio = servicio;
     }
 
-    public String getEstado_Cita() {
-        return estado_Cita;
+    public String getEstadoCita() {
+        return estadoCita;
     }
 
-    public void setEstado_Cita(String estado_Cita) {
-        this.estado_Cita = estado_Cita;
+    public void setEstadoCita(String estado_Cita) {
+        this.estadoCita = estado_Cita;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Cita cita)) return false;
-        return Objects.equals(id_Cita, cita.id_Cita) && Objects.equals(fecha_hora_Cita, cita.fecha_hora_Cita) && Objects.equals(observaciones, cita.observaciones) && Objects.equals(estado_Cita, cita.estado_Cita);
+        return Objects.equals(idCita, cita.idCita) && Objects.equals(fechaHoraCita, cita.fechaHoraCita) && Objects.equals(observaciones, cita.observaciones) && Objects.equals(estadoCita, cita.estadoCita);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id_Cita, fecha_hora_Cita, observaciones, estado_Cita);
+        return Objects.hash(idCita, fechaHoraCita, observaciones, estadoCita);
     }
 }

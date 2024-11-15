@@ -2,7 +2,6 @@ package es.iesjandula.proyectocitas.service;
 
 import es.iesjandula.proyectocitas.model.Cita;
 import es.iesjandula.proyectocitas.model.Cliente;
-import es.iesjandula.proyectocitas.model.Empleado;
 import es.iesjandula.proyectocitas.model.Servicio;
 import es.iesjandula.proyectocitas.repository.CitaRepository;
 import es.iesjandula.proyectocitas.repository.ClienteRepository;
@@ -39,11 +38,8 @@ public class CitaService {
 
     // Registrar una cita nueva
     public Cita registrarCita(Long idCliente, LocalDateTime fechaHora, Long idServicio) {
-        // Validar si existe una cita en la misma fecha y hora
-        boolean horarioOcupado = citaRepository.findAll().stream()
-                .anyMatch(cita -> cita.getFecha_hora_Cita().equals(fechaHora));
-
-        if (horarioOcupado) {
+        // Validar si el horario está ocupado
+        if (citaRepository.existsByFechaHoraCita(fechaHora)) {
             throw new RuntimeException("El horario está ocupado. No se puede registrar la cita.");
         }
 
@@ -53,61 +49,23 @@ public class CitaService {
         Servicio servicio = servicioRepository.findById(idServicio)
                 .orElseThrow(() -> new RuntimeException("Servicio no encontrado."));
 
-        // Crear la nueva cita
+        // Crear y guardar la nueva cita
         Cita nuevaCita = new Cita();
         nuevaCita.setCliente(cliente);
-        nuevaCita.setFecha_hora_Cita(fechaHora);
+        nuevaCita.setFechaHoraCita(fechaHora);
         nuevaCita.setServicio(servicio);
 
-        // Guardar y retornar la nueva cita
         return citaRepository.save(nuevaCita);
     }
 
-    // Crear una cita
-    public Cita guardarCita(Cita cita) {
-        return citaRepository.save(cita);
-    }
-
-    // Actualizar una cita existente
-    public Cita actualizarCita(Long id, Cita citaDetails) {
-        return citaRepository.findById(id)
-                .map(cita -> {
-                    // Actualiza los campos de la cita según los datos de `citaDetails`
-                    cita.setFecha_hora_Cita(citaDetails.getFecha_hora_Cita());
-                    cita.setObservaciones(citaDetails.getObservaciones());
-                    cita.setEstado_Cita(citaDetails.getEstado_Cita());
-
-                    // Actualizar cliente, empleado y servicio
-                    if (citaDetails.getCliente() != null) {
-                        cita.setCliente(citaDetails.getCliente());
-                    }
-                    if (citaDetails.getEmpleado() != null) {
-                        cita.setEmpleado(citaDetails.getEmpleado());
-                    }
-                    if (citaDetails.getServicio() != null) {
-                        cita.setServicio(citaDetails.getServicio());
-                    }
-
-                    // Guardar y retornar la cita actualizada
-                    return citaRepository.save(cita);
-                })
-                .orElseGet(() -> {
-                    // Si no existe, guarda la cita con el ID proporcionado
-                    citaDetails.setId_Cita(id);
-                    return citaRepository.save(citaDetails);
-                });
-    }
-
-    //Método para obtener citas de un día específico
-
+    // Obtener citas de un día específico
     public List<Cita> obtenerCitasPorDia(LocalDate fecha) {
-        return citaRepository.findAll().stream()
-                .filter(cita -> cita.getFecha_hora_Cita().toLocalDate().equals(fecha))
-                .toList();
+        return citaRepository.findByFecha(fecha);
     }
 
-    // Eliminar cita
+    // Eliminar una cita
     public void eliminarCita(Long id) {
         citaRepository.deleteById(id);
     }
 }
+
